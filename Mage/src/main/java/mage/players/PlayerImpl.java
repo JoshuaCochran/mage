@@ -1120,13 +1120,7 @@ public abstract class PlayerImpl implements Player, Serializable {
         SpellAbility ability = originalAbility.copy();
         ability.setControllerId(getId());
         ability.setSourceObjectZoneChangeCounter(game.getState().getZoneChangeCounter(ability.getSourceId()));
-        if (ability.getSpellAbilityType() != SpellAbilityType.BASE) {
-            ability = chooseSpellAbilityForCast(ability, game, noMana);
-            if (ability == null) {
-                // No ability could be cast (selected), probably because of no valid targets (happens often if a card can be cast by an effect).
-                return false;
-            }
-        }
+
         //20091005 - 601.2a
         if (ability.getSourceId() == null) {
             logger.error("Ability without sourceId turn " + game.getTurnNum() + ". Ability: " + ability.getRule());
@@ -1187,11 +1181,6 @@ public abstract class PlayerImpl implements Player, Serializable {
             }
         }
         return false;
-    }
-
-    @Override
-    public SpellAbility chooseSpellAbilityForCast(SpellAbility ability, Game game, boolean noMana) {
-        return ability;
     }
 
     @Override
@@ -2537,12 +2526,14 @@ public abstract class PlayerImpl implements Player, Serializable {
                         opponent.lostForced(game);
                     }
                 }
-                // if no more opponents alive, you win and the game ends
+                // if no more opponents alive (independant from range), you win and the game ends
                 int opponentsAlive = 0;
-                for (UUID opponentId : game.getOpponents(playerId)) {
-                    Player opponent = game.getPlayer(opponentId);
-                    if (opponent != null && !opponent.hasLost()) {
-                        opponentsAlive++;
+                for (UUID playerIdToCheck : game.getPlayerList()) {
+                    if (game.isOpponent(this, playerIdToCheck)) { // Check without range
+                        Player opponent = game.getPlayer(playerIdToCheck);
+                        if (opponent != null && !opponent.hasLost()) {
+                            opponentsAlive++;
+                        }
                     }
                 }
                 if (opponentsAlive == 0 && !hasWon()) {
@@ -2552,7 +2543,7 @@ public abstract class PlayerImpl implements Player, Serializable {
                     game.end();
                 }
             } else {
-                logger.debug("player won -> but already lost before: " + this.getName());
+                logger.debug("player won -> but already lost before or other players still alive: " + this.getName());
             }
         }
     }
