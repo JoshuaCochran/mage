@@ -16,6 +16,7 @@ public class TournamentTypeView implements Serializable {
     private final int minPlayers;
     private final int maxPlayers;
     private final int numBoosters;
+    private final int sizeBoosters;
     private final boolean draft;
     private final boolean limited;
     private final boolean cubeBooster;
@@ -28,6 +29,7 @@ public class TournamentTypeView implements Serializable {
         this.minPlayers = tournamentType.getMinPlayers();
         this.maxPlayers = tournamentType.getMaxPlayers();
         this.numBoosters = tournamentType.getNumBoosters();
+        this.sizeBoosters = tournamentType.getSizeBoosters();
         this.draft = tournamentType.isDraft();
         this.limited = tournamentType.isLimited();
         this.cubeBooster = tournamentType.isCubeBooster();
@@ -56,6 +58,8 @@ public class TournamentTypeView implements Serializable {
     public int getNumBoosters() {
         return numBoosters;
     }
+
+    public int getSizeBoosters() { return sizeBoosters; }
 
     public boolean isDraft() {
         return draft;

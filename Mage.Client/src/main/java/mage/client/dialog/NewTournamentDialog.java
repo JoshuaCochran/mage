@@ -66,6 +66,9 @@ public class NewTournamentDialog extends MageDialog {
         this.spnNumRounds.setModel(new SpinnerNumberModel(2, 2, 10, 1));
         this.spnQuitRatio.setModel(new SpinnerNumberModel(100, 0, 100, 5));
         this.spnMinimumRating.setModel(new SpinnerNumberModel(0, 0, 3000, 10));
+        this.spnNumBoosters.setModel(new SpinnerNumberModel(3, 1, 100, 1));
+        this.spnSizeBoosters.setModel(new SpinnerNumberModel(15, 1, 100, 1));
+        this.spnNumBurns.setModel(new SpinnerNumberModel(0, 0, 100, 1));
     }
 
     public void showDialog(UUID roomId) {
@@ -139,6 +142,12 @@ public class NewTournamentDialog extends MageDialog {
         spnNumWins = new javax.swing.JSpinner();
         lblDraftCube = new javax.swing.JLabel();
         cbDraftCube = new javax.swing.JComboBox();
+        lblNumBoosters = new javax.swing.JLabel();
+        spnNumBoosters = new javax.swing.JSpinner();
+        lblSizeBoosters = new javax.swing.JLabel();
+        spnSizeBoosters = new javax.swing.JSpinner();
+        lblNumBurns = new javax.swing.JLabel();
+        spnNumBurns = new javax.swing.JSpinner();
         lblNumRounds = new javax.swing.JLabel();
         spnNumRounds = new javax.swing.JSpinner();
         lblPacks = new javax.swing.JLabel();
@@ -290,6 +299,30 @@ public class NewTournamentDialog extends MageDialog {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbDraftCubeActionPerformed(evt);
             }
+        });
+
+        lblNumBoosters.setText("Number of Boosters:");
+        lblNumBoosters.setToolTipText("<html>The number of boosters drafted during the tournament.</html>");
+
+        spnNumBoosters.setToolTipText("<html>The number of boosters drafted during the tournament.</html>");
+        spnNumBoosters.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) { spnNumBoostersnumPlayersChanged(evt); }
+        });
+
+        lblSizeBoosters.setText("Cards in Boosters:");
+        lblSizeBoosters.setToolTipText("<html>The number of cards in the boosters drafted during the tournament.</html>");
+
+        spnSizeBoosters.setToolTipText("<html>The number of cards in the boosters drafted during the tournament.</html>");
+        spnSizeBoosters.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) { spnSizeBoostersnumPlayersChanged(evt); }
+        });
+
+        lblNumBurns.setText("Burns:");
+        lblNumBurns.setToolTipText("<html>The number of cards to discard from booster after each pick.</html>");
+
+        spnNumBurns.setToolTipText("<html>The number of cards to discard from booster after each pick.</html>");
+        spnNumBurns.addChangeListener(new javax.swing.event.ChangeListener() {
+           public void stateChanged(javax.swing.event.ChangeEvent evt) { spnNumBurnsnumPlayersChanged(evt); }
         });
 
         lblNumRounds.setText("Number of Swiss Rounds:");
@@ -535,7 +568,18 @@ public class NewTournamentDialog extends MageDialog {
                                                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                                                         .addComponent(lbSkillLevel)
                                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                        .addComponent(cbSkillLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                                        .addComponent(cbSkillLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                                        .addComponent(lblNumBoosters)
+                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(spnNumBoosters)
+                                                                        .addComponent(lblSizeBoosters)
+                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(spnSizeBoosters)
+                                                                        .addComponent(lblNumBurns)
+                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(spnNumBurns))))
+
                                                 .addGap(45, 45, 45))
                                         .addGroup(layout.createSequentialGroup()
                                                 .addComponent(lblName)
@@ -589,7 +633,13 @@ public class NewTournamentDialog extends MageDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(cbDraftCube, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lblDraftCube))
+                                        .addComponent(lblDraftCube)
+                                        .addComponent(lblNumBoosters)
+                                        .addComponent(spnNumBoosters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblSizeBoosters)
+                                        .addComponent(spnSizeBoosters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblNumBurns)
+                                        .addComponent(spnNumBurns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(layout.createSequentialGroup()
@@ -794,6 +844,18 @@ public class NewTournamentDialog extends MageDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_spnNumRoundsnumPlayersChanged
 
+    private void spnNumBoostersnumPlayersChanged(javax.swing.event.ChangeEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void spnSizeBoostersnumPlayersChanged(javax.swing.event.ChangeEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void spnNumBurnsnumPlayersChanged(javax.swing.event.ChangeEvent evt) {
+        // TODO add your handling code here:
+    }
+
     private void cbGameTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbGameTypeActionPerformed
         setGameOptions();
     }//GEN-LAST:event_cbGameTypeActionPerformed
@@ -910,18 +972,36 @@ public class NewTournamentDialog extends MageDialog {
             if (tournamentType.isCubeBooster()) {
                 this.lblDraftCube.setVisible(true);
                 this.cbDraftCube.setVisible(true);
+                this.lblNumBoosters.setVisible(true);
+                this.spnNumBoosters.setVisible(true);
+                this.lblSizeBoosters.setVisible(true);
+                this.spnSizeBoosters.setVisible(true);
+                this.lblNumBurns.setVisible(true);
+                this.spnNumBurns.setVisible(true);
                 this.lblPacks.setVisible(false);
                 this.pnlPacks.setVisible(false);
                 this.pnlRandomPacks.setVisible(false);
             } else if (tournamentType.isRandom() || tournamentType.isRichMan()) {
                 this.lblDraftCube.setVisible(false);
                 this.cbDraftCube.setVisible(false);
+                this.lblNumBoosters.setVisible(false);
+                this.spnNumBoosters.setVisible(false);
+                this.lblSizeBoosters.setVisible(false);
+                this.spnSizeBoosters.setVisible(false);
+                this.lblNumBurns.setVisible(false);
+                this.spnNumBurns.setVisible(false);
                 this.lblPacks.setVisible(true);
                 this.pnlRandomPacks.setVisible(true);
                 this.pnlPacks.setVisible(false);
             } else {
                 this.lblDraftCube.setVisible(false);
                 this.cbDraftCube.setVisible(false);
+                this.lblNumBoosters.setVisible(false);
+                this.spnNumBoosters.setVisible(false);
+                this.lblSizeBoosters.setVisible(false);
+                this.spnSizeBoosters.setVisible(false);
+                this.lblNumBurns.setVisible(false);
+                this.spnNumBurns.setVisible(false);
                 this.lblPacks.setVisible(true);
                 this.pnlPacks.setVisible(true);
                 this.pnlRandomPacks.setVisible(false);
@@ -930,6 +1010,12 @@ public class NewTournamentDialog extends MageDialog {
             // construced
             this.lblDraftCube.setVisible(false);
             this.cbDraftCube.setVisible(false);
+            this.lblNumBoosters.setVisible(false);
+            this.spnNumBoosters.setVisible(false);
+            this.lblSizeBoosters.setVisible(false);
+            this.spnSizeBoosters.setVisible(false);
+            this.lblNumBurns.setVisible(false);
+            this.spnNumBurns.setVisible(false);
             this.pnlPacks.setVisible(false);
             this.pnlPacks.setVisible(false);
             this.pnlRandomPacks.setVisible(false);
@@ -1205,6 +1291,9 @@ public class NewTournamentDialog extends MageDialog {
             tOptions.getLimitedOptions().setIsRichMan(tournamentType.isRichMan());
             if (tournamentType.isCubeBooster()) {
                 tOptions.getLimitedOptions().setDraftCubeName(this.cbDraftCube.getSelectedItem().toString());
+                tOptions.getLimitedOptions().setSizeBoosters((Integer) this.spnSizeBoosters.getValue());
+                tOptions.getLimitedOptions().setNumberBoosters((Integer) this.spnNumBoosters.getValue());
+                tOptions.getLimitedOptions().setNumberBurns((Integer) this.spnNumBurns.getValue());
                 if (!(cubeFromDeckFilename.isEmpty())) {
                     Deck cubeFromDeck = new Deck();
                     try {
@@ -1418,6 +1507,9 @@ public class NewTournamentDialog extends MageDialog {
     private javax.swing.JLabel lbTimeLimit;
     private javax.swing.JLabel lblConstructionTime;
     private javax.swing.JLabel lblDraftCube;
+    private javax.swing.JLabel lblNumBoosters;
+    private javax.swing.JLabel lblSizeBoosters;
+    private javax.swing.JLabel lblNumBurns;
     private javax.swing.JLabel lblFreeMulligans;
     private javax.swing.JLabel lblGameType;
     private javax.swing.JLabel lblMinimumRating;
@@ -1457,6 +1549,9 @@ public class NewTournamentDialog extends MageDialog {
     private javax.swing.JSpinner spnNumSeats;
     private javax.swing.JSpinner spnNumWins;
     private javax.swing.JSpinner spnQuitRatio;
+    private javax.swing.JSpinner spnNumBoosters;
+    private javax.swing.JSpinner spnSizeBoosters;
+    private javax.swing.JSpinner spnNumBurns;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPassword;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;

@@ -69,6 +69,7 @@ public abstract class CardPanel extends MagePermanent implements MouseListener, 
     private int symbolWidth;
 
     private boolean isSelected;
+    private boolean isBurning;
     private boolean isChoosable;
     private boolean showCastingCost;
     private float alpha = 1.0f;
@@ -288,6 +289,12 @@ public abstract class CardPanel extends MagePermanent implements MouseListener, 
     public boolean isSelected() {
         return this.isSelected;
     }
+
+    @Override
+    public void setBurning(boolean isBurning) { this.isBurning = isBurning; }
+
+    public boolean isBurning() { return this.isBurning; }
+
 
     @Override
     public List<MagePermanent> getLinks() {

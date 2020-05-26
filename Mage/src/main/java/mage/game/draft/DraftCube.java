@@ -4,6 +4,7 @@ package mage.game.draft;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 import mage.cards.Card;
 import mage.cards.repository.CardInfo;
 import mage.cards.repository.CardRepository;
@@ -11,7 +12,6 @@ import mage.util.RandomUtil;
 import org.apache.log4j.Logger;
 
 /**
- *
  * @author LevelX2
  */
 public abstract class DraftCube {
@@ -47,7 +47,7 @@ public abstract class DraftCube {
 
     private final String name;
     private final String code;
-    private static final int boosterSize = 15;
+    private static final int defaultBoosterSize = 15;
 
     protected List<CardIdentity> cubeCards = new ArrayList<>();
     protected List<CardIdentity> leftCubeCards = new ArrayList<>();
@@ -69,7 +69,11 @@ public abstract class DraftCube {
         return cubeCards;
     }
 
-    public List<Card> createBooster() {
+    public List<Card> createBooster(int boosterSize) {
+        if (boosterSize == 0) {
+            boosterSize = defaultBoosterSize;
+        }
+
         List<Card> booster = new ArrayList<>();
         if (leftCubeCards.isEmpty()) {
             leftCubeCards.addAll(cubeCards);
@@ -114,6 +118,10 @@ public abstract class DraftCube {
 
         return booster;
     }
+
+    /*public List<Card> createBooster() {
+        return createBooster(defaultBoosterSize);
+    }*/
 
     void removeFromLeftCards(CardIdentity cardId) {
         if (cardId == null) {

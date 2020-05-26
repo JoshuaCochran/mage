@@ -13,7 +13,7 @@ public class BoosterDraftSwissCubeTournamentType extends TournamentType {
     public BoosterDraftSwissCubeTournamentType() {
         this.name = "Booster Draft Swiss (Cube)";
         this.maxPlayers = 16;
-        this.minPlayers = 4;
+        this.minPlayers = 2;
         this.numBoosters = 3;
         this.draft = true;
         this.limited = true;

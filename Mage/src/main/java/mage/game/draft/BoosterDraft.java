@@ -20,10 +20,12 @@ public class BoosterDraft extends DraftImpl {
         while (!isAbort() && boosterNum < numberBoosters) {
             openBooster();
             while (!isAbort() && pickCards()) {
-                if (boosterNum % 2 == 1) {
-                    passLeft();
-                } else {
-                    passRight();
+                if (draftCube == null || ((cardNum - 1) % (numberBurns + 1)) == 0) {
+                    if (boosterNum % 2 == 1) {
+                        passLeft();
+                    } else {
+                        passRight();
+                    }
                 }
                 fireUpdatePlayersEvent();
             }

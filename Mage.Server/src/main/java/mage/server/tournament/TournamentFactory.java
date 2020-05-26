@@ -43,7 +43,8 @@ public enum TournamentFactory {
                     int count = setInfo.getOrDefault(setCode, 0);
                     setInfo.put(setCode, count + 1);
                 }
-                tournament.getOptions().getLimitedOptions().setNumberBoosters(tournament.getTournamentType().getNumBoosters());
+                //tournament.getOptions().getLimitedOptions().setNumberBoosters(tournament.getTournamentType().getNumBoosters());
+                //tournament.getOptions().getLimitedOptions().setSizeBoosters(tournament.getTournamentType().getSizeBoosters());
                 if (tournament.getTournamentType().isCubeBooster()) {
                     DraftCube draftCube;
 

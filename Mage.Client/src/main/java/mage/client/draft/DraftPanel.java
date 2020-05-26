@@ -69,6 +69,9 @@ public class DraftPanel extends javax.swing.JPanel {
     // Number of the current card pick (for draft log writing).
     private int pickNo;
 
+    //Number of burns
+    private int burnNo;
+
     // Cached booster data to be written into the log (see logLastPick).
     private String[] currentBooster;
 
@@ -161,6 +164,7 @@ public class DraftPanel extends javax.swing.JPanel {
 
         packNo = draftView.getBoosterNum();
         pickNo = draftView.getCardNum();
+        burnNo = draftView.getNumBurns();
         setCodes = draftView.getSetCodes();
         draftLogger.updateDraft(draftId, draftView);
 
@@ -264,7 +268,7 @@ public class DraftPanel extends javax.swing.JPanel {
         );
 
         // lower area that shows the booster
-        draftBooster.loadBooster(CardsViewUtil.convertSimple(draftPickView.getBooster()), bigCard);
+        draftBooster.loadBooster(CardsViewUtil.convertSimple(draftPickView.getBooster()), bigCard, pickNo, burnNo);
         this.draftBooster.clearCardEventListeners();
         this.draftBooster.addCardEventListener(
                 (Listener<Event>) event -> {
@@ -273,7 +277,7 @@ public class DraftPanel extends javax.swing.JPanel {
                         DraftPickView view = SessionHandler.sendCardPick(draftId, source.getId(), cardsHidden);
                         if (view != null) {
                             loadCardsToPickedCardsArea(view.getPicks());
-                            draftBooster.loadBooster(EMPTY_VIEW, bigCard);
+                            draftBooster.loadBooster(EMPTY_VIEW, bigCard, pickNo, burnNo);
                             Plugins.instance.getActionCallback().hideOpenComponents();
                             setMessage("Waiting for other players");
                         }

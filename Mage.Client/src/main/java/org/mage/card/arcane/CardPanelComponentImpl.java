@@ -409,6 +409,16 @@ public class CardPanelComponentImpl extends CardPanel {
     }
 
     @Override
+    public void setBurning(boolean isBurning) {
+        super.setBurning(isBurning);
+        if (isBurning) {
+            this.titleText.setGlowColor(Color.red);
+        } else {
+            this.titleText.setGlowColor(Color.black);
+        }
+    }
+
+    @Override
     protected void paintCard(Graphics2D g2d) {
         float alpha = getAlpha();
         if (alpha != 1.0f) {

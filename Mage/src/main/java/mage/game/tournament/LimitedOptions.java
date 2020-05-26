@@ -17,6 +17,8 @@ public class LimitedOptions implements Serializable {
     protected String draftCubeName;
     protected DraftCube draftCube;
     protected int numberBoosters;
+    protected int sizeBoosters;
+    protected int numberBurns;
     protected boolean isRandom;
     protected boolean isRichMan;
     protected Deck cubeFromDeck = null;
@@ -64,6 +66,14 @@ public class LimitedOptions implements Serializable {
     public void setNumberBoosters(int numberBoosters) {
         this.numberBoosters = numberBoosters;
     }
+
+    public int getNumberBurns() { return numberBurns; }
+
+    public void setNumberBurns(int numberBurns) { this.numberBurns = numberBurns; }
+
+    public int getSizeBoosters() { return sizeBoosters; }
+
+    public void setSizeBoosters(int sizeBoosters) { this.sizeBoosters = sizeBoosters; }
 
     public boolean getIsRandom() {
         return isRandom;

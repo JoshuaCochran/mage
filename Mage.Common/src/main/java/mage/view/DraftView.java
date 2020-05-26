@@ -20,6 +20,8 @@ public class DraftView implements Serializable {
     private final List<String> sets = new ArrayList<>();
     private final List<String> setCodes = new ArrayList<>();
     private final int boosterNum;
+    private final int numBoosters;
+    private final int numBurns;
     private final int cardNum;
     private final List<String> players = new ArrayList<>();
 
@@ -37,6 +39,8 @@ public class DraftView implements Serializable {
             }
         }
         this.boosterNum = draft.getBoosterNum();
+        this.numBoosters = draft.getNumberBoosters();
+        this.numBurns = draft.getNumberBurns();
         this.cardNum = draft.getCardNum();
         for(DraftPlayer draftPlayer :draft.getPlayers()) {
             players.add(draftPlayer.getPlayer().getName());
@@ -58,6 +62,10 @@ public class DraftView implements Serializable {
     public int getBoosterNum() {
         return boosterNum;
     }
+
+    public int getNumBoosters() { return numBoosters; }
+
+    public int getNumBurns() { return numBurns; }
 
     public int getCardNum() {
         return cardNum;

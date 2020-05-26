@@ -50,6 +50,8 @@ public abstract class MageCard extends JPanel {
 
     public abstract void setSelected(boolean selected);
 
+    public abstract void setBurning(boolean isBurning);
+
     public abstract void setCardAreaRef(JPanel cardArea);
 
     public abstract void setChoosable(boolean isChoosable);

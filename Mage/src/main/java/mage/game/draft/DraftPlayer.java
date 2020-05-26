@@ -23,12 +23,14 @@ public class DraftPlayer {
     protected boolean picking;
     protected boolean joined = false;
     protected Set<UUID> hiddenCards;
+    protected int pickNum;
 
     public DraftPlayer(Player player) {
         id = UUID.randomUUID();
         this.player = player;
         this.deck = new Deck();
         hiddenCards = new HashSet<>();
+        this.pickNum = 0;
     }
 
     public UUID getId() {
@@ -67,7 +69,21 @@ public class DraftPlayer {
             booster.remove(card);
         }
         picking = false;
+        this.pickNum++;
     }
+
+    public void burnPick(Card card, Set<UUID> hiddenCards) {
+        if (hiddenCards != null) {
+            this.hiddenCards = hiddenCards;
+        }
+        synchronized (booster) {
+            booster.remove(card);
+        }
+        picking = false;
+        this.pickNum++;
+    }
+
+
 
 //    public void openBooster(ExpansionSet set) {
 //        synchronized(booster) {

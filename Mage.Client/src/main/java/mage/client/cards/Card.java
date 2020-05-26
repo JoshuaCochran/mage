@@ -520,6 +520,10 @@ public class Card extends MagePermanent implements MouseMotionListener, MouseLis
     }
 
     @Override
+    public void setBurning(boolean isBurning) {
+    }
+
+    @Override
     public void setCardAreaRef(JPanel cardArea) {
     }
 

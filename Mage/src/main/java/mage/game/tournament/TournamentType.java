@@ -13,6 +13,7 @@ public class TournamentType implements Serializable {
     protected int minPlayers;
     protected int maxPlayers;
     protected int numBoosters;
+    protected int sizeBoosters;
     protected boolean cubeBooster;  // boosters are generated from a defined cube
     protected boolean draft;        // or sealed
     protected boolean limited;      // or construced
@@ -43,6 +44,8 @@ public class TournamentType implements Serializable {
     public int getNumBoosters() {
         return numBoosters;
     }
+
+    public int getSizeBoosters() { return sizeBoosters; }
 
     public boolean isDraft() {
         return draft;

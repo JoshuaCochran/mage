@@ -264,6 +264,8 @@ public class ModernCardRenderer extends CardRenderer {
         Color borderColor;
         if (isSelected) {
             borderColor = Color.green;
+        } else if (isBurning) {
+            borderColor = Color.red;
         } else if (isChoosable) {
             borderColor = new Color(250, 250, 0, 230);
         } else if (cardView.isPlayable()) {

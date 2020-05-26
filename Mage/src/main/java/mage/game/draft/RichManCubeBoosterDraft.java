@@ -61,7 +61,7 @@ public class RichManCubeBoosterDraft extends DraftImpl {
                     }
                 }
 
-                List<Card> nextBooster = draftCube.createBooster();
+                List<Card> nextBooster = draftCube.createBooster(15);
                 next.setBooster(nextBooster);
                 if (Objects.equals(nextId, startId)) {
                     break;

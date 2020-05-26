@@ -272,6 +272,10 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="cbDraftCube" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblDraftCube" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblNumBoosters" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="spnNumBoosters" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblSizeBoosters" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="spnSizeBoosters" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
@@ -478,6 +482,32 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbDraftCubeActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblNumBoosters">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Booster num:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="spnNumBoosters">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="The number of boosters to draft."/>
+      </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="spnNumBoostersnumPlayersChanged"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblSizeBoosters">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Booster num:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="spnSizeBoosters">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="The number of cards in each booster."/>
+      </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="spnSizeBoostersnumPlayersChanged"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblNumRounds">

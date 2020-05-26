@@ -3,6 +3,7 @@ package mage.game.tournament;
 
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
+
 import mage.cards.ExpansionSet;
 import mage.cards.decks.Deck;
 import mage.constants.TournamentPlayerState;
@@ -23,7 +24,6 @@ import mage.util.RandomUtil;
 import org.apache.log4j.Logger;
 
 /**
- *
  * @author BetaSteward_at_googlemail.com
  */
 public abstract class TournamentImpl implements Tournament {
@@ -392,7 +392,7 @@ public abstract class TournamentImpl implements Tournament {
             if (options.getLimitedOptions().getDraftCube() != null) {
                 DraftCube cube = options.getLimitedOptions().getDraftCube();
                 for (int i = 0; i < options.getLimitedOptions().getNumberBoosters(); i++) {
-                    player.getDeck().getSideboard().addAll(cube.createBooster());
+                    player.getDeck().getSideboard().addAll(cube.createBooster(options.getLimitedOptions().getSizeBoosters()));
                 }
             } else {
                 for (ExpansionSet set : sets) {

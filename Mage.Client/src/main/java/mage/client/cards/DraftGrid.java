@@ -39,6 +39,7 @@ public class DraftGrid extends javax.swing.JPanel implements MouseListener {
     protected BigCard bigCard;
     protected MageCard markedCard;
     protected boolean emptyGrid;
+    private int cardNum;
 
     /**
      * Creates new form DraftGrid
@@ -47,6 +48,7 @@ public class DraftGrid extends javax.swing.JPanel implements MouseListener {
         initComponents();
         markedCard = null;
         emptyGrid = true;
+        cardNum = 1;
     }
 
     public void clear() {
@@ -59,7 +61,7 @@ public class DraftGrid extends javax.swing.JPanel implements MouseListener {
         }
     }
 
-    public void loadBooster(CardsView booster, BigCard bigCard) {
+    public void loadBooster(CardsView booster, BigCard bigCard, int pickNo, int burnNo) {
         if (booster instanceof CardsView && booster.isEmpty()) {
             emptyGrid = true;
         } else {
@@ -104,6 +106,13 @@ public class DraftGrid extends javax.swing.JPanel implements MouseListener {
             sortedCards.sort(new CardViewRarityComparator());
             for (CardView card : sortedCards) {
                 MageCard cardImg = Plugins.instance.getMageCard(card, bigCard, dimension, null, true, true, PreferencesDialog.getRenderMode(), true);
+
+                if ((pickNo - 1) % (burnNo + 1) == 0) {
+                    cardImg.setBurning(false);
+                } else {
+                    cardImg.setBurning(true);
+                }
+
                 cardImg.addMouseListener(this);
                 add(cardImg);
                 cardImg.update(card);
@@ -121,6 +130,7 @@ public class DraftGrid extends javax.swing.JPanel implements MouseListener {
         } else {
             logger.warn("Draft Grid - no possible fit of cards");
         }
+        cardNum++;
     }
 
     public void addCardEventListener(Listener<Event> listener) {

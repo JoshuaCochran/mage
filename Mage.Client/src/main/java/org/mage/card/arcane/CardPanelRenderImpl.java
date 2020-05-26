@@ -117,17 +117,19 @@ public class CardPanelRenderImpl extends CardPanel {
         final int height;
         final boolean isChoosable;
         final boolean isSelected;
+        final boolean isBurning;
         final boolean isTransformed;
         final CardView view;
         final int hashCode;
 
-        public ImageKey(CardView view, BufferedImage artImage, int width, int height, boolean isChoosable, boolean isSelected, boolean isTransformed) {
+        public ImageKey(CardView view, BufferedImage artImage, int width, int height, boolean isChoosable, boolean isSelected, boolean isBurning, boolean isTransformed) {
             this.view = view;
             this.artImage = artImage;
             this.width = width;
             this.height = height;
             this.isChoosable = isChoosable;
             this.isSelected = isSelected;
+            this.isBurning = isBurning;
             this.isTransformed = isTransformed;
             this.hashCode = hashCodeImpl();
         }
@@ -138,6 +140,7 @@ public class CardPanelRenderImpl extends CardPanel {
             sb.append((char) width);
             sb.append((char) height);
             sb.append((char) (isSelected ? 1 : 0));
+            sb.append((char) (isBurning ? 1 : 0));
             sb.append((char) (isChoosable ? 1 : 0));
             sb.append((char) (isTransformed ? 1 : 0));
             sb.append((char) (this.view.isPlayable() ? 1 : 0));
@@ -213,6 +216,9 @@ public class CardPanelRenderImpl extends CardPanel {
             if (isSelected != other.isSelected) {
                 return false;
             }
+            if (isBurning != other.isBurning) {
+                return false;
+            }
             return cardViewEquals(view, other.view);
         }
     }
@@ -267,7 +273,7 @@ public class CardPanelRenderImpl extends CardPanel {
             // Try to get card image from cache based on our card characteristics
             ImageKey key = new ImageKey(getGameCard(), artImage,
                     getCardWidth(), getCardHeight(),
-                    isChoosable(), isSelected(), isTransformed());
+                    isChoosable(), isSelected(), isBurning(), isTransformed());
             try {
                 cardImage = IMAGE_CACHE.get(key, this::renderCard);
             } catch (ExecutionException e) {
@@ -312,7 +318,7 @@ public class CardPanelRenderImpl extends CardPanel {
     }
 
     private CardPanelAttributes getAttributes() {
-        return new CardPanelAttributes(getCardWidth(), getCardHeight(), isChoosable(), isSelected(), isTransformed());
+        return new CardPanelAttributes(getCardWidth(), getCardHeight(), isChoosable(), isSelected(), isTransformed(), isBurning());
     }
 
     private int updateArtImageStamp;
@@ -424,6 +430,15 @@ public class CardPanelRenderImpl extends CardPanel {
         if (selected != isSelected()) {
             super.setSelected(selected);
             // Invalidate our render and trigger a repaint
+            cardImage = null;
+            repaint();
+        }
+    }
+
+    @Override
+    public void setBurning(boolean burning) {
+        if (burning != isBurning()) {
+            super.setBurning(burning);
             cardImage = null;
             repaint();
         }

@@ -2,6 +2,7 @@
 package mage.game.draft;
 
 import java.util.*;
+
 import mage.cards.Card;
 import mage.cards.ExpansionSet;
 import mage.game.draft.DraftOptions.TimingOption;
@@ -11,7 +12,6 @@ import mage.players.Player;
 import mage.players.PlayerList;
 
 /**
- *
  * @author BetaSteward_at_googlemail.com
  */
 public abstract class DraftImpl implements Draft {
@@ -20,6 +20,8 @@ public abstract class DraftImpl implements Draft {
     protected final Map<UUID, DraftPlayer> players = new LinkedHashMap<>();
     protected final PlayerList table = new PlayerList();
     protected int numberBoosters;
+    protected int sizeBoosters;
+    protected int numberBurns;
     protected DraftCube draftCube;
     protected List<ExpansionSet> sets;
     protected List<String> setCodes;
@@ -41,6 +43,8 @@ public abstract class DraftImpl implements Draft {
         this.timing = options.getTiming();
         this.sets = sets;
         this.numberBoosters = options.getNumberBoosters();
+        this.sizeBoosters = options.getSizeBoosters();
+        this.numberBurns = options.getNumberBurns();
     }
 
     @Override
@@ -126,6 +130,16 @@ public abstract class DraftImpl implements Draft {
     }
 
     @Override
+    public int getSizeBoosters() {
+        return sizeBoosters;
+    }
+
+    @Override
+    public int getNumberBurns() {
+        return numberBurns;
+    }
+
+    @Override
     public List<ExpansionSet> getSets() {
         return sets;
     }
@@ -148,7 +162,7 @@ public abstract class DraftImpl implements Draft {
     @Override
     public void autoPick(UUID playerId) {
         List<Card> booster = players.get(playerId).getBooster();
-        this.addPick(playerId, booster.get(booster.size()-1).getId(), null);
+        this.addPick(playerId, booster.get(booster.size() - 1).getId(), null);
     }
 
     protected void passLeft() {
@@ -197,7 +211,7 @@ public abstract class DraftImpl implements Draft {
         if (boosterNum < numberBoosters) {
             for (DraftPlayer player : players.values()) {
                 if (draftCube != null) {
-                    player.setBooster(draftCube.createBooster());
+                    player.setBooster(draftCube.createBooster(sizeBoosters));
                 } else {
                     player.setBooster(sets.get(boosterNum).createBooster());
                 }
@@ -280,7 +294,11 @@ public abstract class DraftImpl implements Draft {
         if (player.isPicking()) {
             for (Card card : player.booster) {
                 if (card.getId().equals(cardId)) {
-                    player.addPick(card, hiddenCards);
+                    if (draftCube == null || (player.pickNum % (numberBurns + 1)) == 0) {
+                        player.addPick(card, hiddenCards);
+                    } else {
+                        player.burnPick(card, hiddenCards);
+                    }
                     player.booster.remove(card);
                     break;
                 }

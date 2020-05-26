@@ -101,6 +101,8 @@ public abstract class CardRenderer {
     protected boolean isChoosable;
     protected boolean isSelected;
 
+    protected boolean isBurning;
+
     // Radius of the corners of the cards
     protected static final float CORNER_RADIUS_FRAC = 0.1f; //x cardWidth
     protected static final int CORNER_RADIUS_MIN = 3;
@@ -210,6 +212,7 @@ public abstract class CardRenderer {
         isSelected = attribs.isSelected;
         isChoosable = attribs.isChoosable;
 
+        isBurning = attribs.isBurning;
         // Call the template methods
         drawBorder(g);
         drawBackground(g);
